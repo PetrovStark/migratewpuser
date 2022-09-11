@@ -23,7 +23,7 @@ def get_wp_user_insert(wp_user, get_cols = True, metadata = False):
         count += 1
         if bool(get_cols) and col == primary_key or not bool(get_cols) and list(wp_user.keys())[list(wp_user.values()).index(col)] == primary_key:
             continue
-        data += col if bool(get_cols) else "`{}`".format(col)
+        data += col if bool(get_cols) else "'{}'".format(col)
         if count < len(insert_data):
             data += ', '
    
