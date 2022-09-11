@@ -1,4 +1,4 @@
-from environment import ORIGIN_DB, DESTINY_DB
+from environment import ORIGIN_DB
 from connection import Connection
 
 cursor = Connection(
