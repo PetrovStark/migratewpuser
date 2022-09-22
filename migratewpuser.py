@@ -1,3 +1,4 @@
+import os
 from environment import ORIGIN_DB
 from connection import Connection
 
@@ -37,7 +38,10 @@ migration_queries += "INSERT INTO `wp_users` {} values {};\n".format(get_wp_user
 for meta in wp_usermeta:
     migration_queries += "INSERT INTO `wp_usermeta` {} VALUES {};\n".format(get_wp_user_insert(meta, True, True), get_wp_user_insert(meta, False, True))
 
-with open('{}_migration.sql'.format(wp_user['user_nicename']), 'w') as migration_file:
+if (not os.path.exists('users')):
+    os.makedirs('users')
+
+with open('users/{}_migration.sql'.format(wp_user['user_nicename']), 'w') as migration_file:
     migration_file.write('-- Executar a query "INSERT INTO wp_user..." primeiro, e substituir o ID {} das queries seguintes pelo ID do usuário local gerado pela primeira query\n'.format(wp_user['ID']))
     migration_file.write(migration_queries)
 
